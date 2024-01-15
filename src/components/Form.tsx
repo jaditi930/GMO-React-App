@@ -5,7 +5,7 @@ import { FormControl, FormLabel } from '@mui/material';
 import { useNavigate } from 'react-router';
 
 
-const Title: FC<{}> = () => {
+const Form: FC<{}> = () => {
     const [username,setUsername]=useState("")
     const [email,setEmail]=useState("")
     const [phoneNo,setPhoneNo]=useState("")
@@ -24,15 +24,16 @@ const Title: FC<{}> = () => {
 
   return (
     <>
+    <h1>Login into GMO</h1>
 <FormControl>
     <FormLabel>Enter Name</FormLabel>
-    <TextField required value={username} onChange={(e)=>setUsername(e.target.value)}></TextField>
+    <TextField type="text" required value={username} onChange={(e)=>setUsername(e.target.value)}></TextField>
 
     <FormLabel>Enter Email</FormLabel>
-    <TextField required value={email} onChange={(e)=>setEmail(e.target.value)}></TextField>
+    <TextField type="email" required value={email} onChange={(e)=>setEmail(e.target.value)}></TextField>
 
     <FormLabel>Enter Phone Number</FormLabel>
-    <TextField required value={phoneNo} onChange={(e)=>setPhoneNo(e.target.value)}></TextField>
+    <TextField type="number" required value={phoneNo} onChange={(e)=>setPhoneNo(e.target.value)}></TextField>
 
     <Button onClick={(e)=>handleSubmit(e)}>Submit</Button>
 </FormControl>
@@ -40,4 +41,4 @@ const Title: FC<{}> = () => {
   );
 };
 
-export default Title;
+export default Form;
