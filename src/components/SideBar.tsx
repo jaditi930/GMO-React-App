@@ -82,10 +82,11 @@ const SideBar: FC<{}> = () => {
             else
             parentDep.isChecked=false
 
-            setCheckBoxes([
-                ...checkboxes.slice(0,i),parentDep,...checkboxes.slice(i+1)
-            ])
         }
+
+        setCheckBoxes([
+            ...checkboxes.slice(0,i),parentDep,...checkboxes.slice(i+1)
+        ])
     }
     function format(name:string){
         let new_name:string=name.replace("_"," ")
