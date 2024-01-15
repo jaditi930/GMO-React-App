@@ -18,23 +18,34 @@ const SideBar: FC<{}> = () => {
     const [checkboxes,setCheckBoxes]=useState<Array<Dept>>([])
 
     useEffect(()=>{
-        fetch(`${import.meta.env.BASE_URL}/dept_data.json`)
+        console.log()
+        fetch("http://localhost:5173/public/dept_data.json")
         .then((response)=>response.json())
         .then((data)=>{
-            let new_checkboxes=JSON.parse(JSON.stringify(checkboxes))
+            // let new_checkboxes:Array<Dept>=JSON.parse(JSON.stringify(checkboxes))
+            let new_checkboxes:Array<Dept>=[...checkboxes]
+            console.log(new_checkboxes)
 
             for(let i=0;i<data.length;i++){
-
-                let dept_name:string=data[i].department.replace("_"," ").capitalize()
-                let sub_depts=data[i].sub_departments
-                new_checkboxes[i].name=dept_name
-                new_checkboxes[i].isChecked=false
-
-                for(let j=0;j<sub_depts.length;j++){
-                    new_checkboxes[i].sub_depts[j].name=sub_depts[j]
-                    new_checkboxes[i].sub_depts[j].isChecked=false
+                let new_dept:Dept={
+                    name:data[i].department,
+                    isChecked:false,
+                    sub_depts:[]
 
                 }
+
+                let sub_depts:Array<string>=data[i].sub_departments
+
+                for(let j=0;j<sub_depts.length;j++){
+                    let new_sub_dept:SubDep={
+                        name:sub_depts[j],
+                        isChecked:false
+                    }
+                    new_dept.sub_depts.push(new_sub_dept)
+
+                }
+                new_checkboxes.push(new_dept)
+
             }
 
             setCheckBoxes(new_checkboxes)

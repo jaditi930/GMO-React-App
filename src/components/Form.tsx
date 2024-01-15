@@ -11,7 +11,7 @@ const Form: FC<{}> = () => {
     const [phoneNo,setPhoneNo]=useState("")
     const navigate=useNavigate()
 
-    function handleSubmit(e):void{
+    function handleSubmit(e:React.MouseEvent<HTMLElement>):void{
         e.preventDefault()
         localStorage.setItem("user",
         JSON.stringify({
