@@ -26,7 +26,7 @@ const Data: FC<{}> = () => {
           field: 'body',
           headerName: 'Body',
           type: 'string',
-          width: 500,
+          width: 600,
           editable: true,
         }
       ];
@@ -38,9 +38,9 @@ const Data: FC<{}> = () => {
     },[])
 return (
     <>
-    <Box sx={{ width: '100%',display:'flex' }}>
+    <Box sx={{ width: '100%',display:'flex',justifyContent:'space-between' }}>
         <SideBar/>
-        <DataGrid
+        <DataGrid sx={{width:'60%'}}
             rows={current_posts}
             columns={columns}
             initialState={{

@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import { Box } from '@mui/material';
 
 
 const SideBar: FC<{}> = () => {
@@ -22,7 +23,7 @@ const SideBar: FC<{}> = () => {
         fetch("http://localhost:5173/public/dept_data.json")
         .then((response)=>response.json())
         .then((data)=>{
-            // let new_checkboxes:Array<Dept>=JSON.parse(JSON.stringify(checkboxes))
+
             let new_checkboxes:Array<Dept>=[...checkboxes]
             console.log(new_checkboxes)
 
@@ -64,12 +65,16 @@ const SideBar: FC<{}> = () => {
             ])
         }
     }
+    function format(name:string){
+        let new_name:string=name.replace("_"," ")
+        return new_name.charAt(0).toUpperCase()+new_name.slice(1)
+    }
 
     let dept_array=checkboxes.map((dept:Dept,i)=>{
 
         let children=dept.sub_depts.map((sub_dept,j)=>{
         return    <FormControlLabel
-        label={sub_dept.name}
+        label={ format(sub_dept.name) }
         control={<Checkbox checked={sub_dept.isChecked} onChange={(e)=>handleChange(e,i,j,"child")} />}
       />
         })
@@ -77,18 +82,19 @@ const SideBar: FC<{}> = () => {
         return <div>
 
         <FormControlLabel
-        label={dept.name}
+        label={ format(dept.name)   }
         control={<Checkbox checked={dept.isChecked} onChange={(e)=>handleChange(e,i,-1,"parent")} />}
       />
-      
+      <Box sx={{display:'flex',flexDirection:'column',marginLeft:'34px'}}>
       {children}
+      </Box>
 
         </div>
     })
     return (
-        <>
+        <Box sx={{display:'flex',flexDirection:'column',width:'20%',padding:'10px'}}>
         {dept_array}
-        </>
+        </Box>
     )
 }
 export default SideBar;
