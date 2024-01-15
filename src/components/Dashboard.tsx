@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import SideBar from "./SideBar"
 
 const Data: FC<{}> = () => {
 
@@ -10,8 +11,7 @@ const Data: FC<{}> = () => {
         title:string,
         body:string
     }
-    // var current_posts:Array<Posts>=[];
-    const [current_posts,setPosts]=useState([])
+    const [current_posts,setPosts]=useState<Array<Posts>>([])
     const columns: GridColDef[] = [
         { field: 'id', headerName: 'ID', width: 90 },
         { field: 'userId', headerName: 'User ID', width: 90 },
@@ -38,21 +38,22 @@ const Data: FC<{}> = () => {
     },[])
 return (
     <>
-        <Box sx={{ height: 400, width: '100%' }}>
-      <DataGrid
-        rows={current_posts}
-        columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 10,
+    <Box sx={{ width: '100%',display:'flex' }}>
+        <SideBar/>
+        <DataGrid
+            rows={current_posts}
+            columns={columns}
+            initialState={{
+            pagination: {
+                paginationModel: {
+                pageSize: 10,
+                },
             },
-          },
-        }}
-        pageSizeOptions={[5]}
-        checkboxSelection
-        disableRowSelectionOnClick
-      />
+            }}
+            pageSizeOptions={[10]}
+            checkboxSelection
+            disableRowSelectionOnClick
+        />
     </Box>
     </>
 )
