@@ -54,12 +54,34 @@ const SideBar: FC<{}> = () => {
     },[])
 
     function handleChange(e:React.ChangeEvent<HTMLInputElement>, i:number,j:number,type:string):void{
+        let parentDep:Dept=checkboxes[i]
+        let subDeps:Array<SubDep>=parentDep.sub_depts
+
         if(type=="parent"){
             console.log(e.target.checked)
+            parentDep.isChecked=e.target.checked
+
+            for (let i=0;i<subDeps.length;i++){
+                subDeps[i].isChecked=e.target.checked
+            }
+
         }
         else{
             let parentDep:Dept=checkboxes[i]
             parentDep.sub_depts[j].isChecked=e.target.checked
+
+            let all_checked:boolean=true
+            for (let i=0;i<subDeps.length;i++){
+                if(! subDeps[i].isChecked){
+                    all_checked=false
+                    break
+                }
+            }
+            if(all_checked)
+            parentDep.isChecked=true
+            else
+            parentDep.isChecked=false
+
             setCheckBoxes([
                 ...checkboxes.slice(0,i),parentDep,...checkboxes.slice(i+1)
             ])
