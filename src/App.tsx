@@ -3,7 +3,7 @@ import Form from "./components/Form.tsx"
 import Home from "./components/Home.tsx";
 import './App.css'
 import { useState } from "react";
-import Alert from '@mui/material/Alert';
+import AlertMsg from "./components/AlertMsg.tsx";
 
 
 function App() {
@@ -11,13 +11,9 @@ function App() {
   const [message,showMessage]=useState<boolean>(false)
   return (
     <>
-      { message ? (
-        <Alert severity="info">Please login to continue</Alert>
+      
 
-    ) :(
-        <></>
-    )
-    }
+    <AlertMsg message={message}/>
 
       <BrowserRouter>
       <Routes>

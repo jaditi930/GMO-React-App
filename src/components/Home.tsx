@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router';
 
 
 interface HomeProps{
-    showMessage: Dispatch<SetStateAction<boolean>>;
+    showMessage: Dispatch<SetStateAction<boolean>>
 }
 const Home: FC<HomeProps> = (props) => {
 
