@@ -1,9 +1,14 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState,Dispatch, SetStateAction } from 'react';
 import Box from '@mui/material/Box';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import SideBar from "./SideBar"
+import { useNavigate } from 'react-router';
 
-const Data: FC<{}> = () => {
+
+interface HomeProps{
+    showMessage: Dispatch<SetStateAction<boolean>>;
+}
+const Home: FC<HomeProps> = (props) => {
 
     interface Posts{
         userId:number,
@@ -12,6 +17,8 @@ const Data: FC<{}> = () => {
         body:string
     }
     const [current_posts,setPosts]=useState<Array<Posts>>([])
+    const navigate=useNavigate()
+
     const columns: GridColDef[] = [
         { field: 'id', headerName: 'ID', width: 90 },
         { field: 'userId', headerName: 'User ID', width: 90 },
@@ -32,6 +39,17 @@ const Data: FC<{}> = () => {
       ];
 
     useEffect(()=>{
+
+        // check if user is logged in otherwise redirect him to the login page
+        if(localStorage.getItem("user")==null)
+        {
+            navigate("/")
+            props.showMessage(true)
+        }
+        else{
+            props.showMessage(false)
+        }
+
         fetch("https://jsonplaceholder.typicode.com/posts")
         .then((response)=>response.json())
         .then((data)=>setPosts(data))
@@ -58,4 +76,4 @@ return (
     </>
 )
 }
-export default Data
+export default Home

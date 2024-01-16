@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';    
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { Box } from '@mui/material';
@@ -19,13 +19,12 @@ const SideBar: FC<{}> = () => {
     const [checkboxes,setCheckBoxes]=useState<Array<Dept>>([])
 
     useEffect(()=>{
-        console.log()
-        fetch("http://localhost:5173/public/dept_data.json")
+
+        fetch("http://localhost:5173/dept_data.json")
         .then((response)=>response.json())
         .then((data)=>{
 
             let new_checkboxes:Array<Dept>=[...checkboxes]
-            console.log(new_checkboxes)
 
             for(let i=0;i<data.length;i++){
                 let new_dept:Dept={
@@ -54,11 +53,12 @@ const SideBar: FC<{}> = () => {
     },[])
 
     function handleChange(e:React.ChangeEvent<HTMLInputElement>, i:number,j:number,type:string):void{
+
         let parentDep:Dept=checkboxes[i]
         let subDeps:Array<SubDep>=parentDep.sub_depts
 
         if(type=="parent"){
-            console.log(e.target.checked)
+
             parentDep.isChecked=e.target.checked
 
             for (let i=0;i<subDeps.length;i++){
@@ -89,6 +89,7 @@ const SideBar: FC<{}> = () => {
         ])
     }
     function format(name:string){
+
         let new_name:string=name.replace("_"," ")
         return new_name.charAt(0).toUpperCase()+new_name.slice(1)
     }
@@ -96,28 +97,33 @@ const SideBar: FC<{}> = () => {
     let dept_array=checkboxes.map((dept:Dept,i)=>{
 
         let children=dept.sub_depts.map((sub_dept,j)=>{
-        return    <FormControlLabel
-        label={ format(sub_dept.name) }
-        control={<Checkbox checked={sub_dept.isChecked} onChange={(e)=>handleChange(e,i,j,"child")} />}
-      />
+            return  (  
+                <FormControlLabel
+                label={ format(sub_dept.name) }
+                control={<Checkbox checked={sub_dept.isChecked} onChange={(e)=>handleChange(e,i,j,"child")} />}
+                />
+            )
         })
 
-        return <div>
+        return (
+        <div>
 
-        <FormControlLabel
-        label={ format(dept.name)   }
-        control={<Checkbox checked={dept.isChecked} onChange={(e)=>handleChange(e,i,-1,"parent")} />}
-      />
-      <Box sx={{display:'flex',flexDirection:'column',marginLeft:'34px'}}>
-      {children}
-      </Box>
+            <FormControlLabel
+            label={ format(dept.name)   }
+            control={<Checkbox checked={dept.isChecked} onChange={(e)=>handleChange(e,i,-1,"parent")} />}
+            />
+
+            <Box sx={{display:'flex',flexDirection:'column',marginLeft:'34px'}}>
+            {children}
+            </Box>
 
         </div>
+        )
     })
     return (
-        <Box sx={{display:'flex',flexDirection:'column',width:'20%',padding:'10px'}}>
-        {dept_array}
-        </Box>
+            <Box sx={{display:'flex',flexDirection:'column',width:'20%',padding:'10px'}}>
+            {dept_array}
+            </Box>
     )
 }
 export default SideBar;
