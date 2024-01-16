@@ -44,21 +44,32 @@ const Form: FC<{}> = () => {
     }
 
   return (
-    <div id="form">
-    <h1>Login into GMO</h1>
-<FormControl>
-    <FormLabel>Enter Name</FormLabel>
-    <TextField type="text" value={username} onChange={(e)=>setUsername(e.target.value)} helperText={userWarning}></TextField>
+    <>
+        <h1>Login into GMO</h1>
 
-    <FormLabel>Enter Email</FormLabel>
-    <TextField type="email" value={email} onChange={(e)=>setEmail(e.target.value)} helperText={emailWarning}></TextField>
+        <div id="form">
+        <FormControl sx={{width:"80%"}}>
 
-    <FormLabel>Enter Phone Number</FormLabel>
-    <TextField type="number" value={phoneNo} onChange={(e)=>setPhoneNo(e.target.value)} helperText={phoneNoWarning}></TextField>
+                <TextField type="text" value={username} 
+                    placeholder='Enter your name' 
+                    onChange={(e)=>setUsername(e.target.value)} 
+                    helperText={userWarning}
+                    sx={{marginBottom:"20px"}}/>
 
-    <Button onClick={(e)=>handleSubmit(e)}>Submit</Button>
-</FormControl>
-    </div>
+                <TextField type="email" value={email} 
+                    placeholder='Enter your email'
+                    onChange={(e)=>setEmail(e.target.value)} 
+                    helperText={emailWarning} sx={{marginBottom:"20px"}}/>
+
+                <TextField type="number" 
+                    value={phoneNo} placeholder='Enter your phone number'
+                    onChange={(e)=>setPhoneNo(e.target.value)} 
+                    helperText={phoneNoWarning} sx={{marginBottom:"20px"}}/>
+
+                <Button onClick={(e)=>handleSubmit(e)}>Submit</Button>
+        </FormControl>
+        </div>
+    </>
   );
 };
 

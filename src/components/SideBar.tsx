@@ -113,7 +113,7 @@ const SideBar: FC<{}> = () => {
             control={<Checkbox checked={dept.isChecked} onChange={(e)=>handleChange(e,i,-1,"parent")} />}
             />
 
-            <Box sx={{display:'flex',flexDirection:'column',marginLeft:'34px'}}>
+            <Box sx={{display:'flex',flexDirection:'column',marginLeft:'45px'}}>
             {children}
             </Box>
 
@@ -121,7 +121,7 @@ const SideBar: FC<{}> = () => {
         )
     })
     return (
-            <Box sx={{display:'flex',flexDirection:'column',width:'20%',padding:'10px'}}>
+            <Box sx={{display:'flex',flexDirection:'column',width:'20%',padding:'20px'}}>
             {dept_array}
             </Box>
     )

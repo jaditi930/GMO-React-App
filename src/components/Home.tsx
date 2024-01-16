@@ -55,10 +55,9 @@ const Home: FC<HomeProps> = (props) => {
         .then((data)=>setPosts(data))
     },[])
 return (
-    <>
-    <Box sx={{ width: '100%',display:'flex',justifyContent:'space-between' }}>
+    <Box sx={{ display:'flex',width:'100%',padding:'20px'}}>
         <SideBar/>
-        <DataGrid sx={{width:'60%'}}
+        <DataGrid
             rows={current_posts}
             columns={columns}
             initialState={{
@@ -73,7 +72,6 @@ return (
             disableRowSelectionOnClick
         />
     </Box>
-    </>
 )
 }
 export default Home

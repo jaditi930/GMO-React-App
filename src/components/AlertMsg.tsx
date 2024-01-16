@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import Alert from '@mui/material/Alert';
 
 
@@ -6,7 +6,7 @@ const AlertMsg: FC<{message:boolean}> = (props) => {
     return (
         <>
         { props.message ? (
-            <Alert severity="info">Please login to continue</Alert>
+            <Alert severity="info" sx={{width:"100%"}}>Please login to continue</Alert>
     
         ) :(
             <></>
