@@ -20,11 +20,15 @@ const AllDepts: FC<{}> = () => {
         sub_depts:Array<SubDep>
     }
 
+    // This state managaed the checkboxes of depts and their sub-depts.
     const [checkboxes,setCheckBoxes]=useState<Array<Dept>>([])
-    const [expanded,setExpanded]=useState<Array<boolean>>(Array(2).fill(false))
+
+    // This state tells which depts areexpanded and which are not
+    const [expanded,setExpanded]=useState<Array<boolean>>([])
 
     useEffect(()=>{
 
+        // fetch the dept data
         fetch("http://localhost:5173/dept_data.json")
         .then((response)=>response.json())
         .then((data)=>{
@@ -42,6 +46,7 @@ const AllDepts: FC<{}> = () => {
                 let sub_depts:Array<string>=data[i].sub_departments
 
                 for(let j=0;j<sub_depts.length;j++){
+
                     let new_sub_dept:SubDep={
                         name:sub_depts[j],
                         isChecked:false
@@ -50,6 +55,7 @@ const AllDepts: FC<{}> = () => {
 
                 }
                 new_checkboxes.push(new_dept)
+                expanded.push(false)
 
             }
 
@@ -62,6 +68,7 @@ const AllDepts: FC<{}> = () => {
         let parentDep:Dept=checkboxes[i]
         let subDeps:Array<SubDep>=parentDep.sub_depts
 
+        // ii  a dept checkbox is checked, its sub-dept checkboxes are also checked and vic versa
         if(type=="parent"){
 
             parentDep.isChecked=e.target.checked
@@ -71,8 +78,10 @@ const AllDepts: FC<{}> = () => {
             }
 
         }
-        else{
-            let parentDep:Dept=checkboxes[i]
+        else
+        // if a sub-dept is checked, check whether all sub-depts of its parents are also checked. 
+        // if yes, check the dept n vice versa.
+        {
             parentDep.sub_depts[j].isChecked=e.target.checked
 
             let all_checked:boolean=true
@@ -82,13 +91,14 @@ const AllDepts: FC<{}> = () => {
                     break
                 }
             }
+
             if(all_checked)
             parentDep.isChecked=true
             else
             parentDep.isChecked=false
 
         }
-
+        // update the state of checkboxes
         setCheckBoxes([
             ...checkboxes.slice(0,i),parentDep,...checkboxes.slice(i+1)
         ])
@@ -100,6 +110,7 @@ const AllDepts: FC<{}> = () => {
     }
     function handleAccordian(isExpanded:boolean,i:number){
 
+            // update expanded array when an accordian is expanded or collapsed
             setExpanded([...expanded.slice(0,i),isExpanded,...expanded.slice(i+1)])
     }
 
@@ -117,7 +128,7 @@ const AllDepts: FC<{}> = () => {
         return (
         <div>
 
-<Accordion onChange={(_,expanded)=>handleAccordian(expanded,i)}>
+    <Accordion onChange={(_,expanded)=>handleAccordian(expanded,i)}>
         <AccordionSummary
           expandIcon={expanded[i] == false ? <AddIcon /> : <RemoveIcon/>}
           aria-controls="panel1-content"
