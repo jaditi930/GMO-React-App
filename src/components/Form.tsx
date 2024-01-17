@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { FormControl} from '@mui/material';
 import { useNavigate } from 'react-router';
-
+import {Link} from "react-router-dom"
 
 const Form: FC<{}> = () => {
     const [username,setUsername]=useState("")
@@ -60,6 +60,7 @@ const Form: FC<{}> = () => {
   return (
     <>
         <h1>Login into GMO</h1>
+        <div>Already logged in? Go directly to the <Link to="/home" id="link">home page</Link></div>
 
         <FormControl id="form">
 
