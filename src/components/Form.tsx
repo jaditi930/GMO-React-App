@@ -10,9 +10,18 @@ const Form: FC<{}> = () => {
     const [email,setEmail]=useState("")
     const [phoneNo,setPhoneNo]=useState("")
 
-    const [userWarning,showUserWarning]=useState("")
-    const [emailWarning,showEmailWarning]=useState("")
-    const [phoneNoWarning,showPhoneNoWarning]=useState("")
+    interface Error{
+        error:boolean,
+        errorMessage:string
+    }
+    let defaultError:Error={
+        error:false,
+        errorMessage:""
+    }
+
+    const [userError,showUserError]=useState<Error>(defaultError)
+    const [emailError,showEmailError]=useState(defaultError)
+    const [phoneNoError,showPhoneNoError]=useState(defaultError)
 
 
     const navigate=useNavigate()
@@ -22,15 +31,20 @@ const Form: FC<{}> = () => {
 
         if(username === "" || email === "" || phoneNo === ""){
             if(username === "" )
-            showUserWarning("Please enter the username")
+            showUserError({error:true,errorMessage:"Please enter the username"})
 
             if(email === "")
-            showEmailWarning("Please enter your email")
+            showEmailError({error:true,errorMessage:"Please enter your email"})
 
             if(phoneNo === "")
-            showPhoneNoWarning("Please enter your phone number")
+            showPhoneNoError({error:true,errorMessage:"Please enter your phone number"})
 
             return
+        }
+        else{
+            showUserError(defaultError)
+            showEmailError(defaultError)
+            showPhoneNoError(defaultError)
         }
 
 
@@ -51,23 +65,29 @@ const Form: FC<{}> = () => {
 
                 <TextField type="text" value={username} 
                     placeholder='Enter your name' 
-                    onChange={(e)=>setUsername(e.target.value)} 
-                    helperText={userWarning}
-                    className='input_field'/>
+                    onChange={(e)=> {setUsername(e.target.value); showUserError(defaultError)}} 
+                    helperText={userError.errorMessage}
+                    className="input_field"
+                    error={userError.error}
+                    />
 
                 <TextField type="email" value={email} 
                     placeholder='Enter your email'
-                    onChange={(e)=>setEmail(e.target.value)} 
-                    helperText={emailWarning} 
-                    className='input_field'/>
+                    onChange={(e)=>{ setEmail(e.target.value); showEmailError(defaultError)}} 
+                    helperText={emailError.errorMessage} 
+                    className="input_field"
+                    error={emailError.error}
+                    />
 
                 <TextField type="number" value={phoneNo} 
                     placeholder='Enter your phone number'
-                    onChange={(e)=>setPhoneNo(e.target.value)} 
-                    helperText={phoneNoWarning} 
-                    className='input_field'/>
+                    onChange={(e)=> {setPhoneNo(e.target.value); showPhoneNoError(defaultError) }} 
+                    helperText={phoneNoError.errorMessage} 
+                    className="input_field"
+                    error={phoneNoError.error}
+                    />
 
-                <Button onClick={(e)=>handleSubmit(e)}>Submit</Button>
+                <Button variant='contained' onClick={(e)=>handleSubmit(e)}>Submit</Button>
         </FormControl>
     </>
   );

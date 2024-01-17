@@ -36,8 +36,11 @@ h1{
   width:100%;
 }
 .input_field{
-  margin-bottom: 20px;
+  margin-bottom: 20px !important;
 }
 #datagrid_container{
   width:60%;
+}
+#accordian{
+  flex-direction: row-reverse;
 }

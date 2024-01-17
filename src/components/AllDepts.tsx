@@ -122,7 +122,7 @@ const AllDepts: FC<{}> = () => {
           expandIcon={expanded[i] == false ? <AddIcon /> : <RemoveIcon/>}
           aria-controls="panel1-content"
           id="accordian"
-          sx={{ flexDirection: "row-reverse" }}
+          
         >
         <div>
           <FormControlLabel
