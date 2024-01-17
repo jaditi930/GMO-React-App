@@ -29,7 +29,7 @@ const AllDepts: FC<{}> = () => {
     useEffect(()=>{
 
         // fetch the dept data
-        fetch("http://localhost:5173/dept_data.json")
+        fetch("/dept_data.json")
         .then((response)=>response.json())
         .then((data)=>{
 

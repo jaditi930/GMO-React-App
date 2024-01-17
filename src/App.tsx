@@ -18,7 +18,7 @@ function App() {
       <BrowserRouter>
       <Routes>
         <Route path="/" element={<Form/>}/>
-        <Route path="/home" element={<Home showMessage={showMessage}/>}/>
+        <Route path="home" element={<Home showMessage={showMessage}/>}/>
       </Routes>
     </BrowserRouter>
 
