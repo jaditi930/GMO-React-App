@@ -2,9 +2,13 @@ import React, { FC, useEffect, useState } from 'react';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { Box } from '@mui/material';
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
 
-
-const SideBar: FC<{}> = () => {
+const AllDepts: FC<{}> = () => {
 
     interface SubDep{
         name:string,
@@ -17,6 +21,7 @@ const SideBar: FC<{}> = () => {
     }
 
     const [checkboxes,setCheckBoxes]=useState<Array<Dept>>([])
+    const [expanded,setExpanded]=useState<Array<boolean>>(Array(2).fill(false))
 
     useEffect(()=>{
 
@@ -93,6 +98,10 @@ const SideBar: FC<{}> = () => {
         let new_name:string=name.replace("_"," ")
         return new_name.charAt(0).toUpperCase()+new_name.slice(1)
     }
+    function handleAccordian(isExpanded:boolean,i:number){
+
+            setExpanded([...expanded.slice(0,i),isExpanded,...expanded.slice(i+1)])
+    }
 
     let dept_array=checkboxes.map((dept:Dept,i)=>{
 
@@ -108,22 +117,38 @@ const SideBar: FC<{}> = () => {
         return (
         <div>
 
-            <FormControlLabel
+<Accordion onChange={(e,expanded)=>handleAccordian(expanded,i)}>
+        <AccordionSummary
+          expandIcon={expanded[i] == false ? <AddIcon /> : <RemoveIcon/>}
+          aria-controls="panel1-content"
+          id="accordian"
+          sx={{ flexDirection: "row-reverse" }}
+        >
+        <div>
+          <FormControlLabel
             label={ format(dept.name)   }
             control={<Checkbox checked={dept.isChecked} onChange={(e)=>handleChange(e,i,-1,"parent")} />}
             />
+            <span>({children.length})</span>
+        </div>
 
-            <Box sx={{display:'flex',flexDirection:'column',marginLeft:'45px'}}>
-            {children}
+        </AccordionSummary>
+
+        <AccordionDetails>
+            <Box id="children">
+                {children}
             </Box>
+
+        </AccordionDetails>
+      </Accordion>
 
         </div>
         )
     })
     return (
-            <Box sx={{display:'flex',flexDirection:'column',width:'20%',padding:'20px'}}>
+            <Box id="parent">
             {dept_array}
             </Box>
     )
 }
-export default SideBar;
+export default AllDepts;

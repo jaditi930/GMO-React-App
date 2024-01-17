@@ -1,7 +1,7 @@
 import { FC, useEffect, useState,Dispatch, SetStateAction } from 'react';
 import Box from '@mui/material/Box';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import SideBar from "./SideBar"
+import AllDepts from "./AllDepts"
 import { useNavigate } from 'react-router';
 
 
@@ -33,7 +33,7 @@ const Home: FC<HomeProps> = (props) => {
           field: 'body',
           headerName: 'Body',
           type: 'string',
-          width: 600,
+          width: 400,
           editable: true,
         }
       ];
@@ -55,8 +55,11 @@ const Home: FC<HomeProps> = (props) => {
         .then((data)=>setPosts(data))
     },[])
 return (
-    <Box sx={{ display:'flex',width:'100%',padding:'20px'}}>
-        <SideBar/>
+    <Box id="home">
+
+        <AllDepts/>
+
+        <div id="datagrid_container">
         <DataGrid
             rows={current_posts}
             columns={columns}
@@ -71,6 +74,7 @@ return (
             checkboxSelection
             disableRowSelectionOnClick
         />
+        </div>
     </Box>
 )
 }

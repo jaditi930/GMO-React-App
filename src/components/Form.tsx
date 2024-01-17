@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { FormControl, FormLabel } from '@mui/material';
+import { FormControl} from '@mui/material';
 import { useNavigate } from 'react-router';
 
 
@@ -47,28 +47,28 @@ const Form: FC<{}> = () => {
     <>
         <h1>Login into GMO</h1>
 
-        <div id="form">
-        <FormControl sx={{width:"80%"}}>
+        <FormControl id="form">
 
                 <TextField type="text" value={username} 
                     placeholder='Enter your name' 
                     onChange={(e)=>setUsername(e.target.value)} 
                     helperText={userWarning}
-                    sx={{marginBottom:"20px"}}/>
+                    className='input_field'/>
 
                 <TextField type="email" value={email} 
                     placeholder='Enter your email'
                     onChange={(e)=>setEmail(e.target.value)} 
-                    helperText={emailWarning} sx={{marginBottom:"20px"}}/>
+                    helperText={emailWarning} 
+                    className='input_field'/>
 
-                <TextField type="number" 
-                    value={phoneNo} placeholder='Enter your phone number'
+                <TextField type="number" value={phoneNo} 
+                    placeholder='Enter your phone number'
                     onChange={(e)=>setPhoneNo(e.target.value)} 
-                    helperText={phoneNoWarning} sx={{marginBottom:"20px"}}/>
+                    helperText={phoneNoWarning} 
+                    className='input_field'/>
 
                 <Button onClick={(e)=>handleSubmit(e)}>Submit</Button>
         </FormControl>
-        </div>
     </>
   );
 };
