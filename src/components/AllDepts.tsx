@@ -117,7 +117,7 @@ const AllDepts: FC<{}> = () => {
         return (
         <div>
 
-<Accordion onChange={(e,expanded)=>handleAccordian(expanded,i)}>
+<Accordion onChange={(_,expanded)=>handleAccordian(expanded,i)}>
         <AccordionSummary
           expandIcon={expanded[i] == false ? <AddIcon /> : <RemoveIcon/>}
           aria-controls="panel1-content"

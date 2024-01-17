@@ -31,7 +31,7 @@ const Form: FC<{}> = () => {
 
         if(username === "" || email === "" || phoneNo === ""){
             if(username === "" )
-            showUserError({error:true,errorMessage:"Please enter the username"})
+            showUserError({error:true,errorMessage:"Please enter your username"})
 
             if(email === "")
             showEmailError({error:true,errorMessage:"Please enter your email"})
